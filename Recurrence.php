@@ -60,6 +60,12 @@ class Recurrence
     private $_omitUnavailableMeridiem = true;
 
     /**
+     * @var bool $_excludePastDates Boolean to filter out all dates that have
+     *                             already occurred
+     */
+    private $_excludePastDates = true;
+
+    /**
      * Constructs a class instance and sets valid class parameters
      *
      * @param array $params Hash of parameters to set up in the class. Keys
@@ -100,6 +106,13 @@ class Recurrence
             }
 
             $key = $date->getTimestamp();
+
+            if ($this->_excludePastDates) {
+                if ($key < strtotime("today")) {
+                    continue;
+                }
+            }
+
             if (isset($this->_dates[$key])) {
                 foreach ($instances as $instance) {
                     $found = false;
@@ -115,17 +128,12 @@ class Recurrence
                 }
             }
             else {
-                try {
-                    $this->_dates[$key] = array(
-                        'raw_date' => $dateString,
-                        'raw_time' => $timeString,
-                        'date'     => $date,
-                        'instances' => $instances,
-                    );
-                }
-                catch (Exception $e) {
-                    // Unable to parse $date into DateTime object
-                }
+                $this->_dates[$key] = array(
+                    'raw_date' => $dateString,
+                    'raw_time' => $timeString,
+                    'date'     => $date,
+                    'instances' => $instances,
+                );
             }
         }
     }
@@ -137,7 +145,7 @@ class Recurrence
         $counter = 0;
         foreach ($dates as $index => $date) {
             if ($counter > 0) {
-                // Skip over the consecutive days we've found and accoutned for
+                // Skip over the consecutive days we've found and accounted for
                 $counter--;
                 continue;
             }
