@@ -46,23 +46,10 @@ class Recurrence
     private $_parseTimes = true;
 
     /**
-     * @var string $_timeFormat PHP date format string to format all
-     *                          times
+     * @var bool $_excludePastDates Boolean to filter out all dates that have
+     *                             already occurred
      */
-    private $_timeFormat = "g:ia";
-
-//    /**
-//     * @var bool $_omitTrailingZeroes Bolean to omit minutes from times
-//     *                                if the minutes are 00
-//     */
-//    private $_omitTrailingZeroes = true;
-//
-//    /**
-//     * @var bool $_omitUnavailableMeridiem Boolean to omit am/pm notation
-//     *                                     if none is present in the parsed
-//     *                                     string
-//     */
-//    private $_omitUnavailableMeridiem = true;
+    private $_excludePastDates = true;
 
     /**
      * Constructs a class instance and sets valid class parameters
@@ -109,6 +96,13 @@ class Recurrence
             }
 
             $key = $date->getTimestamp();
+
+            if ($this->_excludePastDates) {
+                if ($key < strtotime("today")) {
+                    continue;
+                }
+            }
+
             if (isset($this->_dates[$key])) {
                 foreach ($instances as $instance) {
                     $found = false;
@@ -124,17 +118,12 @@ class Recurrence
                 }
             }
             else {
-                try {
-                    $this->_dates[$key] = array(
-                        'raw_date' => $dateString,
-                        'raw_time' => $timeString,
-                        'date'     => $date,
-                        'instances' => $instances,
-                    );
-                }
-                catch (Exception $e) {
-                    // Unable to parse $date into DateTime object
-                }
+                $this->_dates[$key] = array(
+                    'raw_date' => $dateString,
+                    'raw_time' => $timeString,
+                    'date'     => $date,
+                    'instances' => $instances,
+                );
             }
         }
     }
@@ -299,33 +288,18 @@ class Recurrence
                         continue;
                     }
 
-//                    $instance = array(
-//                        'start' => null,
-//                        'end'   => null,
-//                    );
                     $instance = new Instance($time);
                     if (preg_match('#\A(.+?),\s*$#', $match, $found)) {
                         $instance->setStartTime(new Time($found[1]));
-//                        $instance['start'] = $found[1];
                     }
                     else if (preg_match('#\A(.+?)-$#', $match, $found)) {
                         $skip++;
                         $instance->setStartTime(new Time($found[1]));
-//                        $instance['start'] = $found[1];
                         $instance->setEndTime(new Time($matches[0][$index+1]));
-//                        $instance['end'] = $matches[0][$index+1];
                     }
                     else {
                         $instance->setStartTime(new Time($match));
-//                        $instance['start'] = $match;
                     }
-
-//                    foreach ($instance as $k => &$v) {
-//                        $v = trim($v, " \t\n\r\0\x0B,-");
-//                        $v = preg_replace('#\s+and(?:\s+|$)#', '', $v);
-//                    }
-
-//                    $instance = $this->formatInstance($instance);
                     if ($matches[1][$index]) {
                         /* @var $instance Instance */
                         $instance->setStartDescription($matches[1][$index]);
@@ -343,80 +317,11 @@ class Recurrence
         }
         else {
             $instances[] = new Instance($time);
-//            $instances[] = array(
-//                'start' => $time,
-//                'end'   => null,
-//            );
         }
 
         return array(
             $date, $instances
         );
-    }
-
-    private function formatInstance($instance)
-    {
-//        // Finish time string if only hour given
-//        if (is_numeric($instance['start'])) {
-//            $instance['start'] = $instance['start'] . ":00";
-//        }
-//        if (is_numeric($instance['end'])) {
-//            $instance['end'] = $instance['end'] . ":00";
-//        }
-//
-//        // Handle military time
-//        foreach ($instance as $k => &$v) {
-//            if ($v) {
-//                if (!preg_match('#(?:a|p)m#', $v)) {
-//                    list($hour, $minutes) = explode(':', $v);
-//                    if ($hour > 12) {
-//                        $hour = $hour - 12;
-//                        $v = "{$hour}:{$minutes}pm";
-//                    }
-//                }
-//            }
-//        }
-//
-//        // Make assumptions about am/pm if not available
-//        if ($instance['start'] && $instance['end']) {
-//            if (!preg_match('#(?:a|p)m#', $instance['start']) && !preg_match('#(?:a|p)m#', $instance['start'])) {
-//                if (strtotime($instance['start']) > strtotime($instance['end'])) {
-//                    $instance['start'] .= "am";
-//                    $instance['end'] .= "pm";
-//                }
-//            }
-//        }
-//
-//        foreach ($instance as $k => &$v) {
-//            if ($v) {
-//                $info = date_parse($v);
-//                if (!$info['errors']) {
-//                    $v = $this->formatTime($v);
-//                }
-//            }
-//        }
-//
-//        return $instance;
-    }
-
-    private function formatTime($time)
-    {
-        $format = $this->_timeFormat;
-        $info = date_parse($time);
-
-        // If no am/pm detected, omit if in the formatter
-        if ($this->_omitUnavailableMeridiem) {
-            if (!preg_match('#(?:a|p)m#', $time)) {
-                $format = preg_replace('#A|a#', '', $format);
-            }
-        }
-        if ($this->_omitTrailingZeroes) {
-            if ($info['minute'] === 0) {
-                $format = preg_replace('#:\S#', '', $format);
-            }
-        }
-
-        return date($format, strtotime($time));
     }
 
     public function getFormattedCompressedDates($dateFormat = "D, M j", $dateSeparator = " thru ", $dateTimeSeparator = ' at ')
@@ -431,7 +336,6 @@ class Recurrence
             }
 
             foreach ($date['times'] as &$instance) {
-//                $instance = trim(implode('-', $instance), '-');
                 $instance = $instance->toString();
             }
 
