@@ -8,7 +8,6 @@
 namespace Recurrence;
 
 use DateTime;
-use Exception;
 
 class Date extends DateTime
 {
@@ -32,10 +31,5 @@ class Date extends DateTime
         $date->setTimestamp($timestamp);
 
         return $date;
-    }
-
-    private function setRawString($dateString)
-    {
-        $this->raw = $dateString;
     }
 }
