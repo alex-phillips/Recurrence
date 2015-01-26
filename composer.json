@@ -1,0 +1,17 @@
+{
+    "name": "exonintrendo/recurrence",
+    "authors": [
+        {
+            "name": "exonintrendo",
+            "email": "exonintrendo@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "~4.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Recurrence": "src/"
+        }
+    }
+}
