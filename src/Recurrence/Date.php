@@ -24,6 +24,11 @@ class Date extends DateTime
         return $this->raw;
     }
 
+    private function setRawString($dateString)
+    {
+        $this->raw = $dateString;
+    }
+
     public static function createFromTimestamp($timestamp)
     {
         $date = new Date();
