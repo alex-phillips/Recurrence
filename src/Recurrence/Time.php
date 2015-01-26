@@ -9,6 +9,9 @@ namespace Recurrence;
 
 class Time
 {
+    /**
+     * @var string $raw The raw time string used to construct the object
+     */
     private $raw;
     private $hour = 0;
     private $minute = 00;
@@ -44,20 +47,10 @@ class Time
             if (preg_match('#((?:a|p)m)#', $time, $matches)) {
                 $this->meridiem = $matches[1];
             }
-            else {
-                list($hour, $minutes) = explode(':', $time);
-                if ($hour > 12) {
-                    $hour = $hour - 12;
-                    $time = "{$hour}:{$minutes}pm";
-                }
-            }
 
             $info = date_parse($time);
-            $this->hour = $info['hour'];
-            if ($this->hour > 12) {
-                $this->hour = $this->hour - 12;
-            }
-            $this->minute = $info['minute'];
+            $this->setHour($info['hour']);
+            $this->setMinute($info['minute']);
         }
         else {
             // error
@@ -73,14 +66,6 @@ class Time
     }
 
     /**
-     * @param null $raw
-     */
-    public function setRaw($raw)
-    {
-        $this->raw = $raw;
-    }
-
-    /**
      * @return mixed
      */
     public function getHour()
@@ -89,11 +74,19 @@ class Time
     }
 
     /**
-     * @param mixed $hour
+     * @param $hour
+     *
+     * @return $this Time This Time instance for fluent method calls
      */
     public function setHour($hour)
     {
+        if ($hour > 12) {
+            $hour = $hour - 12;
+        }
+
         $this->hour = $hour;
+
+        return $this;
     }
 
     /**
@@ -109,11 +102,15 @@ class Time
     }
 
     /**
-     * @param mixed $minute
+     * @param $minute
+     *
+     * @return $this Time This Time instance for fluent method calls
      */
     public function setMinute($minute)
     {
         $this->minute = $minute;
+
+        return $this;
     }
 
     /**
@@ -125,11 +122,16 @@ class Time
     }
 
     /**
-     * @param null $meridiem
+     * @param $meridiem string The meridiem (am/pm) value of the time
+     *
+     * @return $this Time This Time instance for fluent method calls
      */
     public function setMeridiem($meridiem)
     {
+        $meridiem = strtolower(trim(str_replace('.', '', $meridiem)));
         $this->meridiem = $meridiem;
+
+        return $this;
     }
 
     public function toString()
@@ -137,6 +139,11 @@ class Time
         return $this->__toString();
     }
 
+    /**
+     * Convert Time object into a
+     *
+     * @return bool|string
+     */
     public function __toString()
     {
         $format = $this->format;
