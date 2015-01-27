@@ -1,17 +1,15 @@
 {
     "name": "exonintrendo/recurrence",
+    "description": "Recurrence PHP library for consolidating dates and times into recurrences",
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
+    },
+    "license": "MIT",
     "authors": [
         {
             "name": "exonintrendo",
             "email": "exonintrendo@gmail.com"
         }
     ],
-    "require": {
-        "phpunit/phpunit": "~4.4"
-    },
-    "autoload": {
-        "psr-0": {
-            "Recurrence": "src/"
-        }
-    }
+    "require": {}
 }
