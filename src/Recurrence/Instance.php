@@ -94,7 +94,7 @@ class Instance
 
     public function __toString()
     {
-        $times = [];
+        $times = array();
         if ($this->getStartTime()) {
             $time = $this->getStartTime()->toString();
             if ($this->getStartDescription()) {

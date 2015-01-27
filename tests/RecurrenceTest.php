@@ -9,17 +9,17 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
 {
     public function testRecurrence()
     {
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Mon, Jan 26: 12:00am",
             "Tue, Jan 27: 12:00am",
             "Wed, Jan 28: 12:00am",
             "Thu, Jan 29: 12:00am",
             "Fri, Jan 30: 12:00am",
-        ]), [
+        )), array(
             "Mon, Jan 26 thru Fri, Jan 30 at 12am"
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Tue, Jan 27: 9-7",
             "Wed, Jan 28: 9-7",
             "Thu, Jan 29: 9-7",
@@ -56,16 +56,16 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Mar 6: 9-7",
             "Sat, Mar 7: 9-7",
             "Sun, Mar 8: 9-7",
-        ]), [
+        )), array(
             "Tue, Jan 27 thru Sun, Feb 1 at 9am-7pm",
             "Tue, Feb 3 thru Sun, Feb 8 at 9am-7pm",
             "Tue, Feb 10 thru Sun, Feb 15 at 9am-7pm",
             "Tue, Feb 17 thru Sun, Feb 22 at 9am-7pm",
             "Tue, Feb 24 thru Sun, Mar 1 at 9am-7pm",
             "Tue, Mar 3 thru Sun, Mar 8 at 9am-7pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Tue, Jan 27: 10 a.m. till 5 p.m.",
             "Wed, Jan 28: 10 a.m. till 5 p.m.",
             "Thu, Jan 29: 10 a.m. till 5 p.m.",
@@ -132,7 +132,7 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Apr 10: 10 a.m. till 9 p.m.",
             "Sat, Apr 11: 10 a.m. till 5 p.m.",
             "Sun, Apr 12: 10 a.m. till 5 p.m.",
-        ]), [
+        )), array(
             "Tue, Jan 27 thru Thu, Jan 29 at 10am-5pm",
             "Fri, Jan 30 at 10am-9pm",
             "Sat, Jan 31 at 10am-5pm",
@@ -177,9 +177,9 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Apr 10 at 10am-9pm",
             "Sat, Apr 11 at 10am-5pm",
             "Sun, Apr 12 at 10am-5pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Tue, Jan 27: 10 a.m. till 5 p.m.",
             "Wed, Jan 28: 10 a.m. till 5 p.m.",
             "Thu, Jan 29: 10 a.m. till 5 p.m.",
@@ -228,7 +228,7 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Mar 20: 10 a.m. till 9 p.m.",
             "Sat, Mar 21: 10 a.m. till 5 p.m.",
             "Sun, Mar 22: 10 a.m. till 5 p.m.",
-        ]), [
+        )), array(
             "Tue, Jan 27 thru Thu, Jan 29 at 10am-5pm",
             "Fri, Jan 30 at 10am-9pm",
             "Sat, Jan 31 at 10am-5pm",
@@ -261,17 +261,17 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Mar 20 at 10am-9pm",
             "Sat, Mar 21 at 10am-5pm",
             "Sun, Mar 22 at 10am-5pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Jan 30:",
             "Fri, Feb 20: 11:00am",
-        ]), [
+        )), array(
             "Fri, Jan 30",
             "Fri, Feb 20 at 11am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sun, Feb 1: 11:30 a.m. and 1:30 p.m.",
             "Tue, Feb 3: 11:30 a.m. and 1:30 p.m.",
             "Wed, Feb 4: 11:30 a.m. and 1:30 p.m.",
@@ -296,7 +296,7 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Thu, Feb 26: 1:30pm",
             "Fri, Feb 27: 1:30pm",
             "Sat, Feb 28: 11:30am and 1:30pm",
-        ]), [
+        )), array(
             "Sun, Feb 1 at 11:30am, 1:30pm",
             "Tue, Feb 3 thru Sun, Feb 8 at 11:30am, 1:30pm",
             "Tue, Feb 10 thru Fri, Feb 13 at 1:30pm",
@@ -307,9 +307,9 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Sun, Feb 22 at 11:30am, 1:30pm",
             "Tue, Feb 24 thru Fri, Feb 27 at 1:30pm",
             "Sat, Feb 28 at 11:30am, 1:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sun, Feb 1: 12:30pm and 2:30pm",
             "Sat, Feb 7: 12:30pm and 2:30pm",
             "Sun, Feb 8: 12:30pm and 2:30pm",
@@ -318,7 +318,7 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Sat, Feb 21: 12:30pm and 2:30pm",
             "Sun, Feb 22: 12:30pm and 2:30pm",
             "Sat, Feb 28: 12:30pm and 2:30pm",
-        ]), [
+        )), array(
             "Sun, Feb 1 at 12:30pm, 2:30pm",
             "Sat, Feb 7 at 12:30pm, 2:30pm",
             "Sun, Feb 8 at 12:30pm, 2:30pm",
@@ -327,117 +327,117 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Sat, Feb 21 at 12:30pm, 2:30pm",
             "Sun, Feb 22 at 12:30pm, 2:30pm",
             "Sat, Feb 28 at 12:30pm, 2:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 6: 8pm",
-        ]), [
+        )), array(
             "Fri, Feb 6 at 8pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 6: 6pm and 7pm",
             "Fri, Feb 13: 6pm and 7pm",
             "Fri, Feb 20: 6pm and 7pm",
             "Fri, Feb 27: 6pm and 7pm",
-        ]), [
+        )), array(
             "Fri, Feb 6 at 6pm, 7pm",
             "Fri, Feb 13 at 6pm, 7pm",
             "Fri, Feb 20 at 6pm, 7pm",
             "Fri, Feb 27 at 6pm, 7pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 6: 5:30 - 8:30",
             "Fri, Feb 13: 5:30 - 8:30",
             "Fri, Feb 20: 5:30 - 8:30",
             "Fri, Feb 27: 5:30 - 8:30",
-        ]), [
+        )), array(
             "Fri, Feb 6 at 5:30-8:30",
             "Fri, Feb 13 at 5:30-8:30",
             "Fri, Feb 20 at 5:30-8:30",
             "Fri, Feb 27 at 5:30-8:30",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sun, Feb 8: 3:00pm",
-        ]), [
+        )), array(
             "Sun, Feb 8 at 3pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sun, Feb 8: ",
-        ]), [
+        )), array(
             "Sun, Feb 8",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Feb 12: 7:00pm",
-        ]), [
+        )), array(
             "Thu, Feb 12 at 7pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 13: 8pm",
-        ]), [
+        )), array(
             "Fri, Feb 13 at 8pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Feb 14: 5 p.m.",
-        ]), [
+        )), array(
             "Sat, Feb 14 at 5pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Feb 14: 5 - 10",
-        ]), [
+        )), array(
             "Sat, Feb 14 at 5-10",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 20: 11 a.m.",
-        ]), [
+        )), array(
             "Fri, Feb 20 at 11am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 20: 8pm",
-        ]), [
+        )), array(
             "Fri, Feb 20 at 8pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Mon, Feb 23: ",
-        ]), [
+        )), array(
             "Mon, Feb 23",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Feb 27: 8pm",
-        ]), [
+        )), array(
             "Fri, Feb 27 at 8pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Feb 28: 7 and 9:30 p.m.",
-        ]), [
+        )), array(
             "Sat, Feb 28 at 7, 9:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Feb 28: 7pm",
-        ]), [
+        )), array(
             "Sat, Feb 28 at 7pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Feb 28: 9:30-midnight",
-        ]), [
+        )), array(
             "Sat, Feb 28 at 9:30-12am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Mar 7: 10 a.m. till 5 p.m.",
             "Sun, Mar 8: 10 a.m. till 5 p.m.",
             "Tue, Mar 10: 10 a.m. till 5 p.m.",
@@ -566,7 +566,7 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Jul 31: 10 a.m. till 9 p.m.",
             "Sat, Aug 1: 10 a.m. till 5 p.m.",
             "Sun, Aug 2: 10 a.m. till 5 p.m.",
-        ]), [
+        )), array(
             "Sat, Mar 7 at 10am-5pm",
             "Sun, Mar 8 at 10am-5pm",
             "Tue, Mar 10 thru Thu, Mar 12 at 10am-5pm",
@@ -653,132 +653,132 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Fri, Jul 31 at 10am-9pm",
             "Sat, Aug 1 at 10am-5pm",
             "Sun, Aug 2 at 10am-5pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sun, Mar 15: ",
-        ]), [
+        )), array(
             "Sun, Mar 15",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 10am",
             "Fri, Mar 20: All day",
             "Sat, Mar 21: All day",
             "Sun, Mar 22: All day",
-        ]), [
+        )), array(
             "Thu, Mar 19 at 10am",
             "Fri, Mar 20 thru Sun, Mar 22",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 10:30am, 11:30am",
             "Fri, Mar 20: 10:30am, 11:30am",
             "Sat, Mar 21: 10:30am, 11:30am",
             "Sun, Mar 22: 10:30am, 11:30am",
-        ]), [
+        )), array(
             "Thu, Mar 19 thru Sun, Mar 22 at 10:30am, 11:30am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 6:30pm",
-        ]), [
+        )), array(
             "Thu, Mar 19 at 6:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 10:30 and 11:30 a.m.",
             "Fri, Mar 20: 10:30 and 11:30 a.m.",
             "Sat, Mar 21: 10:30 and 11:30 a.m.",
             "Sun, Mar 22: 10:30 and 11:30 a.m.",
-        ]), [
+        )), array(
             "Thu, Mar 19 thru Sun, Mar 22 at 10:30, 11:30am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 3pm",
-        ]), [
+        )), array(
             "Thu, Mar 19 at 3pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 11:00am",
-        ]), [
+        )), array(
             "Thu, Mar 19 at 11am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 1 and 2 p.m.",
             "Fri, Mar 20: 1 and 2 p.m.",
             "Sat, Mar 21: 1 and 2 p.m.",
             "Sun, Mar 22: 1 and 2 p.m.",
-        ]), [
+        )), array(
             "Thu, Mar 19 thru Sun, Mar 22 at 1, 2pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 3 p.m.",
-        ]), [
+        )), array(
             "Thu, Mar 19 at 3pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Thu, Mar 19: 6:30 p.m.",
-        ]), [
+        )), array(
             "Thu, Mar 19 at 6:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Mar 20: Happy hour at 6:30pm, tour at 7:30pm",
-        ]), [
+        )), array(
             "Fri, Mar 20 at Happy hour at 6:30pm, tour at 7:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Fri, Mar 20: Happy hour at 6:00pm, tour at 7:30pm",
-        ]), [
+        )), array(
             "Fri, Mar 20 at Happy hour at 6pm, tour at 7:30pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Mar 21: 10am-5pm",
             "Sun, Mar 22: 10am-5pm",
-        ]), [
+        )), array(
             "Sat, Mar 21 at 10am-5pm",
             "Sun, Mar 22 at 10am-5pm",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             "Sat, Mar 21: 10am-noon, 1-3pm",
             "Sun, Mar 22: 10am-noon, 1-3pm",
-        ]), [
+        )), array(
             "Sat, Mar 21 at 10am-12pm, 1-3pm",
             "Sun, Mar 22 at 10am-12pm, 1-3pm",
-        ]);
+        ));
 
         // Start testing passing in a different format
-        $this->assertEquals($this->generateFormatted([
+        $this->assertEquals($this->generateFormatted(array(
             1422248400,
-        ]), [
+        )), array(
             "Mon, Jan 26 at 5am",
-        ]);
+        ));
 
-        $this->assertEquals($this->generateFormatted([
-            [
+        $this->assertEquals($this->generateFormatted(array(
+            array(
                 'date' => 1422248400,
                 'time' => '7:30pm',
-            ]
-        ]), [
+            )
+        )), array(
             "Mon, Jan 26 at 7:30pm",
-        ]);
+        ));
     }
 
     private function generateFormatted($dates)
     {
-        $params = [
+        $params = array(
             // Don't exclude past dates otherwise tests won't always work
             'excludePastDates' => false,
-        ];
+        );
 
         $recurrence = new \Recurrence\Recurrence($params);
         $recurrence->addDates($dates);
