@@ -11,5 +11,10 @@
             "email": "exonintrendo@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Recurrence": "src/"
+        }
+    }
 }
