@@ -47,7 +47,7 @@ class Recurrence
     private $_timeFormat = "g:ia";
 
     /**
-     * @var bool $_omitTrailingZeroes Bolean to omit minutes from times
+     * @var bool $_omitTrailingZeroes Boolean to omit minutes from times
      *                                if the minutes are 00
      */
     private $_omitTrailingZeroes = true;
