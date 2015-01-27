@@ -785,15 +785,6 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
 
         $composerResults = $recurrence->getFormattedCompressedDates();
 
-        $recurrence = new Recurrence($params);
-        $recurrence->addDates($dates);
-
-        $singleResults = $recurrence->getFormattedCompressedDates();
-
-        if ($composerResults === $singleResults) {
-            return $composerResults;
-        }
-
-        return false;
+        return $composerResults;
     }
 }
