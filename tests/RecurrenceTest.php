@@ -757,30 +757,35 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
         ]);
 
         // Start testing passing in a different format
-//        $this->assertEquals($this->generateFormatted([
-//            1422248400,
-//        ]), [
-//            "Mon, Jan 26 at 5am",
-//        ]);
-//
-//        $this->assertEquals($this->generateFormatted([
-//            [
-//                'date' => 1422248400,
-//                'time' => '7:30pm',
-//            ]
-//        ]), [
-//            "Mon, Jan 26 at 7:30pm",
-//        ]);
+        $this->assertEquals($this->generateFormatted([
+            1422248400,
+        ]), [
+            "Mon, Jan 26 at 5am",
+        ]);
+
+        $this->assertEquals($this->generateFormatted([
+            [
+                'date' => 1422248400,
+                'time' => '7:30pm',
+            ]
+        ]), [
+            "Mon, Jan 26 at 7:30pm",
+        ]);
     }
 
     private function generateFormatted($dates)
     {
-        $recurrence = new \Recurrence\Recurrence();
+        $params = [
+            // Don't exclude past dates otherwise tests won't always work
+            'excludePastDates' => false,
+        ];
+
+        $recurrence = new \Recurrence\Recurrence($params);
         $recurrence->addDates($dates);
 
         $composerResults = $recurrence->getFormattedCompressedDates();
 
-        $recurrence = new Recurrence();
+        $recurrence = new Recurrence($params);
         $recurrence->addDates($dates);
 
         $singleResults = $recurrence->getFormattedCompressedDates();
