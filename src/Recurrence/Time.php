@@ -12,9 +12,9 @@ class Time
     /**
      * @var string $raw The raw time string used to construct the object
      */
-    private $raw;
-    private $hour = 0;
-    private $minute = 00;
+    private $raw = '';
+    private $hour = '';
+    private $minute = '';
     private $meridiem = '';
     private $format = "g:ia";
 
@@ -33,27 +33,29 @@ class Time
 
     public function __construct($time = null)
     {
-        $time = trim($time, " \t\n\r\0\x0B,-");
-        $time = preg_replace('#\s+and(?:\s+|$)#', '', $time);
-
-        $this->raw = $time;
-
-        if (is_numeric($time)) {
-            $time = $time . ":00";
-        }
-
-        // Handle military time
         if ($time) {
-            if (preg_match('#((?:a|p)m)#', $time, $matches)) {
-                $this->meridiem = $matches[1];
+            $this->raw = $time;
+
+            $time = trim($time, " \t\n\r\0\x0B,-");
+            $time = preg_replace('#\s+and(?:\s+|$)#', '', $time);
+
+            if (is_numeric($time)) {
+                $time = $time . ":00";
             }
 
-            $info = date_parse($time);
-            $this->setHour($info['hour']);
-            $this->setMinute($info['minute']);
-        }
-        else {
-            // error
+            // Handle military time
+            if ($time) {
+                if (preg_match('#((?:a|p)m)#', $time, $matches)) {
+                    $this->meridiem = $matches[1];
+                }
+
+                $info = date_parse($time);
+                $this->setHour($info['hour']);
+                $this->setMinute($info['minute']);
+            }
+            else {
+                // error
+            }
         }
     }
 
@@ -146,22 +148,26 @@ class Time
      */
     public function __toString()
     {
-        $format = $this->format;
-        $time = $this->getHour() . ":" . $this->getMinute() . $this->getMeridiem();
-        $info = date_parse($time);
+        if ($this->raw) {
+            $format = $this->format;
+            $time = $this->getHour() . ":" . $this->getMinute() . $this->getMeridiem();
+            $info = date_parse($time);
 
-        // If no am/pm detected, omit if in the formatter
-        if ($this->_omitUnavailableMeridiem) {
-            if (!preg_match('#(?:a|p)m#', $time)) {
-                $format = preg_replace('#A|a#', '', $format);
+            // If no am/pm detected, omit if in the formatter
+            if ($this->_omitUnavailableMeridiem) {
+                if (!preg_match('#(?:a|p)m#', $time)) {
+                    $format = preg_replace('#A|a#', '', $format);
+                }
             }
-        }
-        if ($this->_omitTrailingZeroes) {
-            if ($info['minute'] === 0) {
-                $format = preg_replace('#:\S#', '', $format);
+            if ($this->_omitTrailingZeroes) {
+                if ($info['minute'] === 0) {
+                    $format = preg_replace('#:\S#', '', $format);
+                }
             }
+
+            return date($format, strtotime($time));
         }
 
-        return date($format, strtotime($time));
+        return $this->raw;
     }
 }

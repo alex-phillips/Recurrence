@@ -295,16 +295,24 @@ class Recurrence
                     else if (preg_match('#\A(.+?)-$#', $match, $found)) {
                         $skip++;
                         $instance->setStartTime(new Time($found[1]));
-                        $instance->setEndTime(new Time($matches[0][$index+1]));
+                        if (isset($matches[0][$index+1])) {
+                            // Sometimes the time is formatted '6:30pm-until'.
+                            // If no end time, only generate start time.
+                            $instance->setEndTime(new Time($matches[0][$index+1]));
+                        }
                     }
                     else {
                         $instance->setStartTime(new Time($match));
                     }
-                    if ($matches[1][$index]) {
+
+                    if (isset($matches[1][$index])) {
                         /* @var $instance Instance */
                         $instance->setStartDescription($matches[1][$index]);
-                        if ($instance->getEndTime()) {
-                            $instance->setEndDescription($matches[1][$index+1]);
+
+                        if (isset($matches[1][$index+1])) {
+                            if ($instance->getEndTime()) {
+                                $instance->setEndDescription($matches[1][$index+1]);
+                            }
                         }
                     }
 

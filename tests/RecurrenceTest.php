@@ -756,6 +756,12 @@ class RecurrenceTest extends PHPUnit_Framework_TestCase
             "Sun, Mar 22 at 10am-12pm, 1-3pm",
         ));
 
+        $this->assertEquals($this->generateFormatted(array(
+            "Thu, Apr 23: 6:30pm-until",
+        )), array(
+            "Thu, Apr 23 at 6:30pm",
+        ));
+
         // Start testing passing in a different format
         $this->assertEquals($this->generateFormatted(array(
             1422248400,
