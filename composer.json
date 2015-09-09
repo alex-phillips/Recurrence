@@ -1,5 +1,5 @@
 {
-    "name": "exonintrendo/recurrence",
+    "name": "alex-phillips/recurrence",
     "description": "Recurrence PHP library for consolidating dates and times into recurrences",
     "require-dev": {
         "phpunit/phpunit": "~4.4"
@@ -7,8 +7,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "exonintrendo",
-            "email": "exonintrendo@gmail.com"
+            "name": "Alex Phillips",
+            "email": "ahp118@gmail.com"
         }
     ],
     "require": {},
