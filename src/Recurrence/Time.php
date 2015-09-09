@@ -151,6 +151,11 @@ class Time
         if ($this->raw) {
             $format = $this->format;
             $time = $this->getHour() . ":" . $this->getMinute() . $this->getMeridiem();
+
+            if($this->getHour() == 0 && $this->getMeridiem() == 'am'){
+                $time = '12' . ":" . $this->getMinute() . $this->getMeridiem();
+            }
+
             $info = date_parse($time);
 
             // If no am/pm detected, omit if in the formatter
